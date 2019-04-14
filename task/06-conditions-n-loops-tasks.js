@@ -132,7 +132,7 @@ function isTriangle(a,b,c) {
  *  
  */
 function doRectanglesOverlap(rect1, rect2) {
-    throw new Error('Not implemented');
+   return rect2.top < rect1.top + rect1.height && rect2.left < rect1.left + rect1.width;
 }
 
 
@@ -163,8 +163,7 @@ function doRectanglesOverlap(rect1, rect2) {
  *   
  */
 function isInsideCircle(circle, point) {
-    let distance = Math.sqrt((circle.center.x - point.x) ** 2 + (circle.center.y - point.y) ** 2)
-    return distance < circle.radius
+    return Math.sqrt((circle.center.x - point.x) ** 2 + (circle.center.y - point.y) ** 2) < circle.radius
 }
 
 
@@ -383,7 +382,6 @@ function isBracketsBalanced(str) {
    }
 
    if (stack.length != 0) result = false
-
    return result
 }
 
@@ -546,7 +544,35 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-    throw new Error('Not implemented');
+      const boardColumn = (arr, n) => arr.map(x => x[n])
+      const boardRow = (arr, n) => {
+          let arr1 = [];
+          for (let i = 0; i < 3; i++) {
+              arr1.push(arr[n][i])
+          }
+          return arr1
+      }
+      const boardDiag1 = arr => [arr[0][0], arr[1][1], arr[2][2]];
+      const boardDiag2 = arr => [arr[0][2], arr[1][1], arr[2][0]];
+
+      const allEqual = (line, symbol) => {
+          for (let i = 0; i < line.length; i++) {
+              if (line[i] !== symbol) return false
+          }
+          return true
+      }
+
+      const check = (symb, board) => {
+          if (allEqual(boardDiag1(board), symb) || allEqual(boardDiag2(board), symb)) return true
+          for (let i = 0; i < 3; i++) {
+              if (allEqual(boardColumn(board, i), symb) || allEqual(boardRow(board, i), symb)) return true
+          }
+          return false
+      }
+      let isRes0 = check("0", position)
+      let isResX = check("X", position)
+      if (isRes0) return "0"
+      else if (isResX) return "X"
 }
 
 

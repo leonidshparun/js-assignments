@@ -131,7 +131,7 @@ function getZigZagMatrix(n) {
  *
  */
 function canDominoesMakeRow(dominoes) {
-    throw new Error('Not implemented');
+   throw new Error('Not implemented');
 }
 
 
